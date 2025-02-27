@@ -15,33 +15,57 @@
     <p>
         a container is an isolated executable environment that is instantiated from a image by the docker engine<br>
         it can be started stopped and deleted it is used by devs to package there software and dependencies<br>
-        to run on any target system and avoid the <strong>"it runs on my machine"<strong> problem.
+        to run on any target system and avoid the <strong>"it runs on my machine"<strong> problem.<br>
     </p>
 
 <h3>docker images</h3>
     <p>
         a docker image is a readonly template that packages all the libraries and system dependencies needed to run a certain software,<br>
         another to look at it is a blueprint or a snapshot to run containers since the docker engine initializes container from docker images<br>
-        and the docker image does not change after initializing a container from it.
+        and the docker image does not change after initializing a container from it.<br>
     </p>
 
 <h3>why use docker</h3>
     <p>
         docker is a very useful piece of software that can be beneficial in lots of different ways, for example you can run a gui web<br>
         browser inside a docker container or even play games and lots of other cool stuff, but by far docker is used mostly for CI/CD pipelines<br>
-        (continuous integration, deployment), developing application in microservices architecture and isolated development environments.
+        (continuous integration, deployment), developing application in microservices architecture and isolated development environments.<br>
     </p>
 
-<h1>commands</h1>
+<h1>some useful commands</h1>
 
 <ul>
-    <li>docker pull "image-name" </li>
-    <p>
-        fetch an docker image from docker hub to your machine, so it can be used to instantiate containers.
-    </p>
-    <li>docker image list or docker images</li>
-    <p>
-        list available docker images in your machine.
-    </p>
-    <li>docker run</li>
-<ul>
+    <li>$ docker pull "image-name" </li>
+        <p>
+            fetch an docker image from docker hub to your machine, so it can be used to instantiate containers.<br>
+            you can specify the source when using docker pull but docker hub is the default.<br>
+        </p>
+    <li>$ docker image list or docker images</li>
+        <p>
+            list available docker images in your machine.
+        </p>
+    <li>$ docker run "image-name" </li>
+        <p>
+            as the name suggest this is the command that will run a container from an image, flags can be added check this such as '--name "a name"'<br>
+            to chose a name for it , '--rm' so the container will be deleted automatically after termination, '-it' to run a interactive tty to the <br>
+            container you want to run , '--rm' so that the container will be deleted entirely from the system after termination 
+        </p>
+    <li>$ docker ps</li>
+        <p>
+            list all docker containers that are currently running, you can add -a to see terminated ones <br> 
+        </p>
+    <li>$ docker start "name/id"</li>
+        <p>
+            run an already existing container but terminated, because docker containers can be ether running or terminated so that it can keep <br>
+            it's state , keep in mind that docker containers are not retrievable after being deleted using $(docker rm "name")<br>
+        </p>
+    <li>$ docker stop "name/id"</li>
+        <p>
+            stop a running container and keep its state know it will only be visible using docker ps with the flag -a, stopping a command usually <br>
+            takes more time that starting it .<br> 
+        </p>
+    <li>$ docker rm "name/id"</li>
+        <p>
+            deletes a specified container Not the image but the actual container, to delete a container it must be stopped first.<br>
+        </p>
+    <ul>
