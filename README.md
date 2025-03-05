@@ -68,4 +68,14 @@
         <p>
             deletes a specified container Not the image but the actual container, to delete a container it must be stopped first.<br>
         </p>
-    <ul>
+    <li>$ docker start "name/id " ...</li>
+        <p>
+            re launches one or more stopped containers in the background.
+        </p>
+    <li>$ docker exec "name/id" command </li>
+        <p>
+            executes the given command in a running container, can be used for example after docker start to access a the running container <br>
+            with an interactive shell here is the syntax:
+                $-> docker exec -it 'container' bash 
+        </p>
+<ul>
