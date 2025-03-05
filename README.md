@@ -15,7 +15,7 @@
     <p>
         a container is an isolated executable environment that is instantiated from a image by the docker engine<br>
         it can be started stopped and deleted it is used by devs to package there software and dependencies<br>
-        to run on any target system and avoid the <strong>"it runs on my machine"<strong> problem.<br>
+        to run on any target system and avoid the <strong>"it runs on my machine"</strong> problem.<br>
     </p>
 
 <h3>docker images</h3>
@@ -35,47 +35,47 @@
 <h1>some useful commands</h1>
 
 <ul>
-    <li>$ docker pull "image-name" </li>
+    <li><strong>$ docker pull "image-name"</strong></li>
         <p>
             fetch an docker image from docker hub to your machine, so it can be used to instantiate containers.<br>
             you can specify the source when using docker pull but docker hub is the default.<br>
         </p>
-    <li>$ docker image list or docker images</li>
+    <li><strong>$ docker image list or docker images</strong></li>
         <p>
             list available docker images in your machine.
         </p>
-    <li>$ docker run "image-name" </li>
+    <li><strong>$ docker run "image-name"</strong></li>
         <p>
             as the name suggest this is the command that will run a container from an image, flags can be added check this such as '--name "a name"'<br>
             to chose a name for it , '--rm' so the container will be deleted automatically after termination, '-it' to run a interactive tty to the <br>
             container you want to run , '--rm' so that the container will be deleted entirely from the system after termination 
         </p>
-    <li>$ docker ps</li>
+    <li><strong>$ docker ps</strong></li>
         <p>
             list all docker containers that are currently running, you can add -a to see terminated ones <br> 
         </p>
-    <li>$ docker start "name/id"</li>
+    <li><strong>$ docker start "name/id"</strong></li>
         <p>
             run an already existing container but terminated, because docker containers can be ether running or terminated so that it can keep <br>
             it's state , keep in mind that docker containers are not retrievable after being deleted using $(docker rm "name")<br>
         </p>
-    <li>$ docker stop "name/id"</li>
+    <li><strong>$ docker stop "name/id"</strong></li>
         <p>
             stop a running container and keep its state know it will only be visible using docker ps with the flag -a, stopping a command usually <br>
             takes more time that starting it .<br> 
         </p>
-    <li>$ docker rm "name/id"</li>
+    <li><strong>$ docker rm "name/id"</strong></li>
         <p>
             deletes a specified container Not the image but the actual container, to delete a container it must be stopped first.<br>
         </p>
-    <li>$ docker start "name/id " ...</li>
+    <li><strong>$ docker start "name/id " ...</strong></li>
         <p>
             re launches one or more stopped containers in the background.
         </p>
-    <li>$ docker exec "name/id" command </li>
+    <li><strong>$ docker exec "name/id" command</strong></li>
         <p>
             executes the given command in a running container, can be used for example after docker start to access a the running container <br>
-            with an interactive shell here is the syntax:
+            with an interactive shell here is the syntax:<br>
                 $-> docker exec -it 'container' bash 
         </p>
 <ul>
