@@ -124,6 +124,18 @@
         is similar to CMD except that it can not be<br>
         overridden when using docker exec and the provided argument will be used as a pram<br>
         for the specified command in the entry point , if both ENTRYPOINT and CMD are used<br>
-        CMD value will be used as extra arguments for the ENTRYPOINT command<br>
+        CMD value will be used as extra arguments for the ENTRYPOINT command, unless if <br>
+        otehr args are specified when using docker run<br>
+    </p>
+    <li><strong>ENV var=val</strong></li>
+    <p>
+        used to set a permanent environment variable that can always be<br>
+        accessed by the container, you may ask why is that even a thing since we can just<br>
+        use "RUN export" and set our env vars, the problem with this approach is that the<br>
+        env var will not be accessible by next instruction since this it will only be<br>
+        available for the child which used it( {default-shell } export) and will not be<br>
+        remembered by docker since it does only commit file system changes and not process<br>
+        environment, that where ENV instruction becomes handy, since it makes dockerd<br>
+        inject the environment variables every time a new container is started from the image.<br> 
     </p>
 </ul>
