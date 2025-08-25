@@ -1,81 +1,129 @@
 <h1>terminology</h1>
-
+    
 <h3><strong>docker ?</strong></h3>
-    <p>
-        docker is an open source containerization tool that manages isolated environments(containers)<br>
-        the containers are provided with all the tools and dependencies needed to run a certain software<br>
-        the key deference between containerization and virtualization is that a container<br>
-        is light weight and a lot more faster to run unlike a virtual machine, the raison for<br>
-        this is that the hypervisor virtualize hardware (RAM, CPU, STORAGE ...) and needs a new separate OS<br>
-        on the other hand docker engine does an OS level virtualization, which means it uses the host kernel<br>
-        to run and manage its containers in isolation.<br>
-    </p>
+<p>
+    Docker is an open source containerization tool that manages isolated environments (containers).<br>
+    Containers include all the tools and dependencies needed to run specific software.<br>
+    The key difference between containerization and virtualization is that containers are lightweight and much faster to run than virtual machines.<br>
+    Virtual machines require hardware virtualization (RAM, CPU, STORAGE, etc.) and a separate OS via a hypervisor.<br>
+    Docker engine uses OS-level virtualization, sharing the host kernel to run and manage containers in isolation.<br>
+</p>
 
 <h3>container</h3>
-    <p>
-        a container is an isolated executable environment that is instantiated from a image by the docker engine<br>
-        it can be started stopped and deleted it is used by devs to package there software and dependencies<br>
-        to run on any target system and avoid the <strong>"it runs on my machine"</strong> problem.<br>
-    </p>
+<p>
+    A container is an isolated running environment instantiated from an image by the Docker engine.<br>
+    It can be started, stopped, and deleted. Developers use containers to package software and dependencies<br>
+    to run on any target system and avoid the <strong>"it runs on my machine"</strong> problem.<br>
+</p>
 
 <h3>docker images</h3>
-    <p>
-        a docker image is a readonly template that packages all the libraries and system dependencies needed to run a certain software,<br>
-        another to look at it is a blueprint or a snapshot to run containers since the docker engine initializes container from docker images<br>
-        and the docker image does not change after initializing a container from it.<br>
-    </p>
+<p>
+    A Docker image is a read-only template that packages all libraries and system dependencies needed to run specific software.<br>
+    Think of it as a blueprint or snapshot for containers, since the Docker engine initializes containers from images.<br>
+    The image does not change after a container is created from it.<br>
+</p>
 
 <h3>why use docker</h3>
-    <p>
-        docker is a very useful piece of software that can be beneficial in lots of different ways, for example you can run a gui web<br>
-        browser inside a docker container or even play games and lots of other cool stuff, but by far docker is used mostly for CI/CD pipelines<br>
-        (continuous integration, deployment), developing application in microservices architecture and isolated development environments.<br>
-    </p>
+<p>
+    Docker is mainly used by development teams to share consistent development environments.<br>
+    All team members can share a Dockerfile that defines standard dependencies and packages.<br>
+    This file is used to build images and then containers, ensuring new features work for everyone.<br>
+    Docker is also popular for developing applications with microservices architecture, as each service can run in its own independent container.<br>
+</p>
 
 <h1>some useful commands</h1>
-
 <ul>
     <li><strong>$ docker pull "image-name"</strong></li>
-        <p>
-            fetch an docker image from docker hub to your machine, so it can be used to instantiate containers.<br>
-            you can specify the source when using docker pull but docker hub is the default.<br>
-        </p>
-    <li><strong>$ docker image list or docker images</strong></li>
-        <p>
-            list available docker images in your machine.
-        </p>
+    <p>
+        Fetch a Docker image from Docker Hub to your machine for container instantiation.<br>
+        You can specify the source, but Docker Hub is the default.<br>
+    </p>
+    <li><strong>$ docker image list</strong> or <strong>docker images</strong></li>
+    <p>
+        List available Docker images on your machine.
+    </p>
     <li><strong>$ docker run "image-name"</strong></li>
-        <p>
-            as the name suggest this is the command that will run a container from an image, flags can be added check this such as '--name "a name"'<br>
-            to chose a name for it , '--rm' so the container will be deleted automatically after termination, '-it' to run a interactive tty to the <br>
-            container you want to run , '--rm' so that the container will be deleted entirely from the system after termination 
-        </p>
+    <p>
+        Run a container from an image. Flags like <code>--name "desired-name"</code>, <code>--rm</code>, and <code>-it</code> can be added.<br>
+    </p>
     <li><strong>$ docker ps</strong></li>
-        <p>
-            list all docker containers that are currently running, you can add -a to see terminated ones <br> 
-        </p>
+    <p>
+        List all running Docker containers. Add <code>-a</code> to see stopped ones.<br>
+    </p>
     <li><strong>$ docker start "name/id"</strong></li>
-        <p>
-            run an already existing container but terminated, because docker containers can be ether running or terminated so that it can keep <br>
-            it's state , keep in mind that docker containers are not retrievable after being deleted using $(docker rm "name")<br>
-        </p>
+    <p>
+        Start an existing stopped container. Deleted containers cannot be retrieved.<br>
+    </p>
     <li><strong>$ docker stop "name/id"</strong></li>
-        <p>
-            stop a running container and keep its state know it will only be visible using docker ps with the flag -a, stopping a command usually <br>
-            takes more time that starting it .<br> 
-        </p>
+    <p>
+        Gracefully stop a running container and keep its state. It will be visible with <code>docker ps -a</code>.<br>
+    </p>
+    <li><strong>$ docker kill "name/id"</strong></li>
+    <p>
+        Immediately and forcefully stop a running container. Use only as a last resort, as it may cause data loss.<br>
+    </p>
     <li><strong>$ docker rm "name/id"</strong></li>
-        <p>
-            deletes a specified container Not the image but the actual container, to delete a container it must be stopped first.<br>
-        </p>
-    <li><strong>$ docker start "name/id " ...</strong></li>
-        <p>
-            re launches one or more stopped containers in the background.
-        </p>
-    <li><strong>$ docker exec "name/id" command</strong></li>
-        <p>
-            executes the given command in a running container, can be used for example after docker start to access a the running container <br>
-            with an interactive shell here is the syntax:<br>
-                $-> docker exec -it 'container' bash 
-        </p>
+    <p>
+        Delete a specified container (not the image). The container must be stopped first.<br>
+    </p>
+    <li><strong>$ docker exec "name/id" 'a command'</strong></li>
+    <p>
+        Execute a command in a running container. For example, <code>$ docker exec -it container bash</code> opens an interactive shell.<br>
+    </p>
+    <li><strong>$ docker attach "name/id"</strong></li>
+    <p>
+        Attach your terminal to a running container. Closing the terminal gracefully stops the container.<br>
+    </p>
+</ul>
+
+<h1>writing docker files</h1>
+<p>
+    A Dockerfile is a plain text file that Docker uses to build container images.<br>
+    The syntax is: <code>INSTRUCTION argument</code>.<br>
+    Each instruction creates a read-only layer in the image. Layers are cached and reused by Docker.<br>
+    Docker assigns a unique hash to each layer change and checks for cached layers when building images.<br>
+    If a match is found, Docker reuses the cached layer; otherwise, it creates a new one.<br>
+</p>
+
+<h2>common docker file instructions</h2>
 <ul>
+    <li><strong>FROM &lt;base image&gt;:</strong></li>
+    <p>
+        this is a mandatory instruction that must be set before any other one, it is used to specify<br>
+        which base image will be used to create your new image, it is fetched from an image registry<br>
+        docker hub by default you may have a 'chicken and egg question' in mind and ask if each i want to<br>
+        make my image i should always use FROM to fetch a base image how did the first image was created ?<br>
+        the answer is that The process for creating a foundational base image like debian, or alpine<br>
+        is a manual they compress the minimal filesystem from the OS as a tar file and use it as the pulled base<br> 
+        image, you can also use FROM scratch so you will not use any image as your starting point, and then copy<br>
+        the file system tar to your image directly.<br>
+    </p>
+    <li><strong>RUN &lt;command:&gt; args...</strong></li>
+    <p>
+        is used to run a programs that are needed or just desired to be<br>
+        executed while creating the image, it can be used in two different ways :<br>
+        1. RUN <command> [arg1] [...] in this case the dockerd will relay on the default<br>
+          base image shell to run the command.<br>
+        2. RUN ["bin path", "arg1", ...] in this case dockerd will execute the command<br>
+          directly without relaying on the shell.<br>
+    </p>
+    <li><strong>CMD &lt;command:&gt;[args...]</strong></li>
+    <p>
+        is a way of specifying a default command that will<br>
+        be used by the container, which means it will be be the PID 1 for the container<br>
+        and if it exits the container itself will stop, this command will usually be set<br>
+        to a long running command such as a shell or a web server, whats important to<br>
+        know is that this instruction doesn't have anything to do with the image creation<br>
+        so it will not add a new layer but only be used a starting point when a container<br>
+        is started form the image, this command can be overridden when using docker run<br>
+        keep in mind that if ENTRYPOINT is used the CMD value will only be used as params<br>
+        for the command specified in the ENTRYPOINT<br>
+    </p>
+    <li><strong>ENTRYPOINT &lt;command:&gt;[args...]</strong></li>
+    <p>
+        is similar to CMD except that it can not be<br>
+        overridden when using docker exec and the provided argument will be used as a pram<br>
+        for the specified command in the entry point , if both ENTRYPOINT and CMD are used<br>
+        CMD value will be used as extra arguments for the ENTRYPOINT command<br>
+    </p>
+</ul>
