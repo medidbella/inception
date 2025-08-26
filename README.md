@@ -138,4 +138,18 @@
         environment, that where ENV instruction becomes handy, since it makes dockerd<br>
         inject the environment variables every time a new container is started from the image.<br> 
     </p>
+    <li><strong>COPY host-path container-path</strong></li>
+    <p>
+        looks for 'host-path' can be files or dirs from the build context (a path specifeid in <br>
+        the docker build command) and copies them to the 'container-path', if the resource<br>
+        specified in 'container-path' is not foun in the the build context docker build will fail<br> 
+    </p>
+    <li><strong>ADD 'src' 'dest'</strong></li>
+    <p>
+        this instruction does the same thing as COPY, except that it does have some extra features wich are:<br>
+        first: automatical extraction of tar archives for example : ADD file.tar.gz ./ will <br>
+        extract the file to './' in the container file system.<br>
+        second: remote url fetching, which means 'src' can be a path to an online resource that will be stored in <br>
+        the 'dest' wich should be a path in your container file system.<br>
+    </p>
 </ul>

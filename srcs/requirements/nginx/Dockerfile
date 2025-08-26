@@ -2,8 +2,8 @@ FROM debian:12-slim
 
 WORKDIR /test/
 
-RUN touch file1 file2 && mkdir dir1 .hidden-dir1
+COPY list-print.sh ./
 
-ENV VAR="val"
+ADD https://www.example.com ./file.htm
 
-ENTRYPOINT bash
+ENTRYPOINT ["bash"]
