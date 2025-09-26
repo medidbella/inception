@@ -91,8 +91,8 @@
     <p>
         this is a mandatory instruction that must be set before any other one, it is used to specify<br>
         which base image will be used to create your new image, it is fetched from an image registry<br>
-        docker hub by default you may have a 'chicken and egg question' in mind and ask if each i want to<br>
-        make my image i should always use FROM to fetch a base image how did the first image was created ?<br>
+        docker hub by default you may have a 'chicken and egg question' in mind and ask if each time i want to<br>
+        make an image i should always use FROM to fetch a base image how did the first image was created ?<br>
         the answer is that The process for creating a foundational base image like debian, or alpine<br>
         is a manual they compress the minimal filesystem from the OS as a tar file and use it as the pulled base<br> 
         image, you can also use FROM scratch so you will not use any image as your starting point, and then copy<br>
@@ -100,7 +100,7 @@
     </p>
     <li><strong>RUN &lt;command:&gt; args...</strong></li>
     <p>
-        is used to run a programs that are needed or just desired to be<br>
+        is used to run programs that are needed or just desired to be<br>
         executed while creating the image, it can be used in two different ways :<br>
         1. RUN <command> [arg1] [...] in this case the dockerd will relay on the default<br>
           base image shell to run the command.<br>
@@ -110,46 +110,49 @@
     <li><strong>CMD &lt;command:&gt;[args...]</strong></li>
     <p>
         is a way of specifying a default command that will<br>
-        be used by the container, which means it will be be the PID 1 for the container<br>
+        be used by the container, which means it will be the PID 1 for the container<br>
         and if it exits the container itself will stop, this command will usually be set<br>
         to a long running command such as a shell or a web server, whats important to<br>
         know is that this instruction doesn't have anything to do with the image creation<br>
         so it will not add a new layer but only be used a starting point when a container<br>
-        is started form the image, this command can be overridden when using docker run<br>
-        keep in mind that if ENTRYPOINT is used the CMD value will only be used as params<br>
-        for the command specified in the ENTRYPOINT<br>
+        is started form the image, this command can be overridden by the argument passed to <br>
+        docker run, keep in mind that if ENTRYPOINT is used the CMD value will only be used<br>
+        as a parameter for the command specified in ENTRYPOINT<br>
     </p>
     <li><strong>ENTRYPOINT &lt;command:&gt;[args...]</strong></li>
     <p>
-        is similar to CMD except that it can not be<br>
-        overridden when using docker exec and the provided argument will be used as a pram<br>
-        for the specified command in the entry point , if both ENTRYPOINT and CMD are used<br>
-        CMD value will be used as extra arguments for the ENTRYPOINT command, unless if <br>
-        otehr args are specified when using docker run<br>
+        is similar to CMD except that command-line arguments passed to docker run are used as<br>
+        parameters for the ENTRYPOINT command, The ENTRYPOINT itself can be overridden using<br>
+        the <code>--entrypoint</code> flag in docker run If both ENTRYPOINT and CMD are used<br>
+        the CMD value will be used as extra arguments for the ENTRYPOINT command <br>
+        unless arguments are passed to docker run, in this case those arguments are used instead.<br>
     </p>
     <li><strong>ENV var=val</strong></li>
     <p>
         used to set a permanent environment variable that can always be<br>
         accessed by the container, you may ask why is that even a thing since we can just<br>
         use "RUN export" and set our env vars, the problem with this approach is that the<br>
-        env var will not be accessible by next instruction since this it will only be<br>
-        available for the child which used it( {default-shell } export) and will not be<br>
+        env var will not be accessible by next instructions since this it will only be<br>
+        available for the process which used it( {default-shell } export) and will not be<br>
         remembered by docker since it does only commit file system changes and not process<br>
-        environment, that where ENV instruction becomes handy, since it makes dockerd<br>
-        inject the environment variables every time a new container is started from the image.<br> 
+        environment, thats where the ENV instruction becomes handy, since it makes dockerd<br>
+        inject the environment variables every time a new container is started from the image.<br>
+        the variable can also be used in the docker file itself.<br>
     </p>
     <li><strong>COPY host-path container-path</strong></li>
     <p>
-        looks for 'host-path' can be files or dirs from the build context (a path specifeid in <br>
+        looks for 'host-path' (can be files or dirs) in the build context (a path specified in <br>
         the docker build command) and copies them to the 'container-path', if the resource<br>
-        specified in 'container-path' is not foun in the the build context docker build will fail<br> 
+        specified in 'host-path' is not found in the the build context docker build will fail<br> 
     </p>
     <li><strong>ADD 'src' 'dest'</strong></li>
     <p>
-        this instruction does the same thing as COPY, except that it does have some extra features wich are:<br>
-        first: automatical extraction of tar archives for example : ADD file.tar.gz ./ will <br>
+        this instruction does the same thing as COPY, except that it does have some extra features:<br>
+        first: automated extraction of tar archives for example : ADD file.tar.gz ./ will <br>
         extract the file to './' in the container file system.<br>
         second: remote url fetching, which means 'src' can be a path to an online resource that will be stored in <br>
-        the 'dest' wich should be a path in your container file system.<br>
+        the 'dest' which should be a path in your container file system.<br>
+        however, using remote URLs and automatic extraction is discouraged for reproducibility and security reasons.<br>
+        prefer using COPY unless you explicitly need these features.<br>
     </p>
 </ul>

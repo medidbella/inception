@@ -1,9 +1,19 @@
-FROM debian:12-slim
+FROM debian:12
 
-WORKDIR /test/
+WORKDIR /etc/nginx/
 
-COPY list-print.sh ./
+COPY  index.html  /var/www/html
 
-ADD https://www.example.com ./file.htm
+RUN apt update -y && apt -y install openssl nginx 
 
-ENTRYPOINT ["bash"]
+RUN mkdir -p /etc/srv-prv/ /etc/nginx/
+
+COPY nginx.conf ./
+
+RUN openssl req -x509 -nodes \
+			-keyout /etc/srv-prv/nginx_ssl.key \
+			-out /etc/srv-prv/nginx_ssl.crt \
+			-days 365\
+			-subj "/C=MA/ST=NON/L=NON/O=1337/OU=IT/CN=UserName.42.fr/UID=INV"
+
+CMD ["nginx"]
