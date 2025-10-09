@@ -2,13 +2,11 @@ FROM debian:12
 
 WORKDIR /etc/nginx/
 
-COPY  index.html  /var/www/html
-
 RUN apt update -y && apt -y install openssl nginx 
 
 RUN mkdir -p /etc/srv-prv/ /etc/nginx/
 
-COPY nginx.conf ./
+COPY ./nginx.conf ./
 
 RUN openssl req -x509 -nodes \
 			-keyout /etc/srv-prv/nginx_ssl.key \
