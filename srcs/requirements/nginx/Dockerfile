@@ -12,6 +12,6 @@ RUN openssl req -x509 -nodes \
 			-keyout /etc/srv-prv/nginx_ssl.key \
 			-out /etc/srv-prv/nginx_ssl.crt \
 			-days 365\
-			-subj "/C=MA/ST=NON/L=NON/O=1337/OU=IT/CN=UserName.42.fr/UID=INV"
+			-subj "/C=MA/ST=NON/L=NON/O=1337/OU=IT/CN=midbella.42.fr/UID=INV"
 
 CMD ["nginx"]
