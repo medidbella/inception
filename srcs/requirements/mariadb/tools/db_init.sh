@@ -1,8 +1,4 @@
 #!/bin/bash
-DB_NAME="wordpress_db"
-DB_USER_NAME="wordpress_user"
-DB_USER_PASS="tempPassword"
-
 
 mariadb-install-db > /dev/null
 

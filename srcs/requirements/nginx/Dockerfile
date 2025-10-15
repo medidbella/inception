@@ -6,7 +6,7 @@ RUN apt update -y && apt -y install openssl nginx
 
 RUN mkdir -p /etc/srv-prv/ /etc/nginx/
 
-COPY ./nginx.conf ./
+COPY ./conf/nginx.conf ./
 
 RUN openssl req -x509 -nodes \
 			-keyout /etc/srv-prv/nginx_ssl.key \

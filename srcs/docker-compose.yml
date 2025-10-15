@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    env_file:
+      .env
+    volumes:
+      - db-data/:/var/lib/mysql
+    networks:
+      - inception-network
+    restart: unless-stopped
+  
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    env_file:
+      .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wp-files:/var/www/wordpress
+    networks:
+      - inception-network
+    restart: unless-stopped
+
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wp-files:/var/www/wordpress
+    networks:
+      - inception-network
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    name: db-data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/midbella/data/mariadb
+      o: bind
+  
+  wp-files:
+    name: wp-files
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/midbella/data/wordpress
+      o: bind
+
+networks:
+  inception-network:
+    driver: bridge
